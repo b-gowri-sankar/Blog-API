@@ -8,7 +8,7 @@ dotenv.config();
 
 app.use(express.json());
 app.use("/api/auth", authRoute);
-app.use("/api/user", require("./routes/users"));
+app.use("/api/users", require("./routes/users"));
 
 mongoose
 	.connect(process.env.MONGO_URL, {
