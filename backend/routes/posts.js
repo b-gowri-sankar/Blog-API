@@ -16,4 +16,29 @@ router.post("/", async (req, res) => {
 	}
 });
 
+//@desc update the post by id;
+//PUT api/posts
+
+router.put("/:id", async (req, res) => {
+	try {
+		const post = await Post.findById(req.params.id);
+		!(post.username === req.body.username) &&
+			res.send(401).json("Unauthorized Error");
+		try {
+			const udpatedPost = await Post.findByIdAndUpdate(
+				req.params.id,
+				{
+					$set: req.body,
+				},
+				{ new: true }
+			);
+			res.status(200).json(udpatedPost);
+		} catch (err) {
+			res.status(500).json(err);
+		}
+	} catch (error) {
+		res.status(500).json(error);
+	}
+});
+
 module.exports = router;
