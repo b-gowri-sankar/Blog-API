@@ -55,13 +55,14 @@ router.delete("/:id", async (req, res) => {
 //@desc get user by id
 //GET /:id
 router.get("/:id", async (req, res) => {
+	console.log("getting user is triggered");
 	try {
 		const user = await User.findById(req.params.id);
 		!user && res.status(404).json("not found");
 		const { password, ...others } = user._doc;
-		res.status(200).json(others);
+		res.sendStatus(200).json(others);
 	} catch (err) {
-		res.send(500).json(err);
+		res.sendStatus(500).json(err);
 	}
 });
 
